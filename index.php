@@ -21,6 +21,22 @@
 
         $spel = $stmt->fetchAll();
         
+        if(isset($_GET)){
+            if($_GET["action"]=="Radera"){
+                $sql = "DELETE FROM `spel` WHERE id='{$_GET["id"]}'";
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute();   
+            }
+            elseif($_GET["action"]=="Redigera"){
+                
+            }
+            elseif($_GET["action"]=="Skicka"){
+                $sql = "INSERT INTO `spel`(`id`, `namn`) VALUES ('','{$_GET["nytt"]}')";
+                $stmt = $dbh->prepare($sql);
+                $stmt->execute();
+            }
+        }
+        
         echo "<div>";
         echo "<h1>Datorspel:</h1>";
         
@@ -36,22 +52,35 @@
             
         foreach($spel as $saker){
             echo "<tr>";
-            echo "<td>";
+            echo "<form>";
+            echo "<td>";            
             echo $saker["id"];
+            echo "<input type='hidden' name='id' value='{$saker["id"]}'>";
             echo "</td>";
             echo "<td>";
             echo $saker["namn"];
             echo "</td>";
-            echo "<td>";
-            echo "<form>";
+            echo "<td>";            
             echo "<input type='submit' name='action' value='Redigera'>";         
             echo "</td>";
             echo "<td>";
-            echo "<input type='submit' name='action' value='Ta bort'>";
-            echo "</form>";
+            echo "<input type='submit' name='action' value='Radera'>";                        
             echo "</td>";
-            echo "</tr>";
+            echo "</form>";
+            echo "</tr>";                      
         }
+        echo "<tr>";
+        echo "<form>";
+        echo "<td>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type='text' name='nytt' value=''>";
+        echo "</td>";
+        echo "<td>";
+        echo "<input type='submit' name='action' value'add'>";
+        echo "</td>";
+        echo "</form>";
+        echo "</tr>";          
         echo "</table>";
         echo "</div>";
         ?>
