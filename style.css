@@ -1,0 +1,10 @@
+*{
+    font-family: comic sans ms;
+}
+body{
+    background:pink;    
+}
+div{
+    width:200px;
+    margin:100px auto;
+}
